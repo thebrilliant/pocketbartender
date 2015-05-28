@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Calendar;
+
 
 public class MainActivity extends ActionBarActivity {
 
     MainApp app;
+    int day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +19,11 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         app = (MainApp) getApplication();
+        day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        if (day != app.today) {
+            //update drink of the day
+            app.today = day;
+        }
     }
 
 
