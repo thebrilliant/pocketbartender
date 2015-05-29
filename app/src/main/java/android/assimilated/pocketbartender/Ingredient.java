@@ -1,5 +1,6 @@
 package android.assimilated.pocketbartender;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -10,36 +11,34 @@ public class Ingredient {
     private String name;
     private String type;
     private double pricePerUnit;
+    private String unit;
     //caloriesPerUnit required only for the optional user story
     private int caloriesPerUnit;
 
     public Ingredient() {
-        setValues(null, null, 0, 0);
+        setValues(null, null, 0, 0, "");
     }
 
-    public Ingredient(JSONObject jsonObject) {
-        String name = "";
-        String type = "";
-        double pricePerUnit = 0;
-        int caloriesPerUnit = 0;
-
+    public Ingredient(JSONObject jsonObject) throws JSONException {
         //to be completed once structure of JSON file is determined
-
-        setValues(name, type, pricePerUnit, caloriesPerUnit);
+        this.name = jsonObject.getString("name");
+        this.type = jsonObject.getString("type");
+        this.pricePerUnit = jsonObject.getDouble("cost");
+        this.caloriesPerUnit = jsonObject.getInt("calories");
+        this.unit = jsonObject.getString("unit");
     }
 
-    public Ingredient(String name, String type, double pricePerUnit, int caloriesPerUnit) {
-        setValues(name, type, pricePerUnit, caloriesPerUnit);
+    public Ingredient(String name, String type, double pricePerUnit, int caloriesPerUnit, String unit) {
+        setValues(name, type, pricePerUnit, caloriesPerUnit, unit);
     }
 
-    private void setValues(String name, String type, double pricePerUnit, int caloriesPerUnit) {
+    private void setValues(String name, String type, double pricePerUnit, int caloriesPerUnit, String unit) {
         this.name = name;
         this.type = type;
         this.pricePerUnit = pricePerUnit;
         this.caloriesPerUnit = caloriesPerUnit;
+        this.unit = unit;
     }
-
-
 
     //getters and setters
     public String getName() {
@@ -64,6 +63,14 @@ public class Ingredient {
 
     public void setPricePerUnit(double pricePerUnit) {
         this.pricePerUnit = pricePerUnit;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public int getCaloriesPerUnit() {
