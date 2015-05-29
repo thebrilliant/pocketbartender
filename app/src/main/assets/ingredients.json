@@ -1,0 +1,12 @@
+[
+    { "name":"Lime",
+      "type":"Citrus",
+      "cost":"0.50",
+      "calories": "10", 
+    }, 
+    { "name":"Ice",
+      "type":"Chiller",
+      "cost":"0.00",
+      "calories": "0.00",
+    }
+]
