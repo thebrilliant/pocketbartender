@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public class MainApp extends Application {
     public static int today;
+    private static MainApp instance = null;
 
     public MainApp() {
         //ensures that there is only one instance of QuizApp
