@@ -15,7 +15,7 @@ import java.util.Map;
 public class Recipe {
     private static List<Ingredient> ingredientList = new ArrayList<Ingredient>();
     private String name;
-    private String type;
+    private String description;
     private double totalCost;
     private Map<Ingredient, Double> ingredientToQuantity;
     private List<String> instructions;
@@ -32,7 +32,7 @@ public class Recipe {
         //to be completed once structure of JSON file is determined
 
         this.name = jsonObject.getString("name");
-        this.type = jsonObject.getString("type");
+        this.description = jsonObject.getString("description");
 
         JSONArray instructionsArray = jsonObject.getJSONArray("instructions");
         this.instructions = jsonArrayToArrayList(instructionsArray);
@@ -89,7 +89,7 @@ public class Recipe {
         return null;
     }
 
-    public Recipe (String name, String type, Map<Ingredient, Double> ingredientToQuantity,
+    public Recipe (String name, String description, Map<Ingredient, Double> ingredientToQuantity,
                    List<String> instructions) {
         //recalculates cost and calories each time a new Recipe object is created
 
@@ -102,18 +102,18 @@ public class Recipe {
         }
         int totalCalories = (int) unroundedTotalCalories;
 
-        setValues(name, type, totalCost, ingredientToQuantity, instructions, totalCalories);
+        setValues(name, description, totalCost, ingredientToQuantity, instructions, totalCalories);
     }
 
-    public Recipe(String name, String type, int totalCost, Map<Ingredient, Double> ingredientToQuantity,
+    public Recipe(String name, String description, int totalCost, Map<Ingredient, Double> ingredientToQuantity,
                   List<String> instructions, int totalCalories) {
-        setValues(name, type, totalCost, ingredientToQuantity, instructions, totalCalories);
+        setValues(name, description, totalCost, ingredientToQuantity, instructions, totalCalories);
     }
 
-    private void setValues(String name, String type, double totalCost, Map<Ingredient, Double> ingredientToQuantity,
+    private void setValues(String name, String description, double totalCost, Map<Ingredient, Double> ingredientToQuantity,
                            List<String> instructions, int totalCalories) {
         this.name = name;
-        this.type = type;
+        this.description = description;
         this.totalCost = totalCost;
         this.ingredientToQuantity = ingredientToQuantity;
         this.instructions = instructions;
@@ -146,12 +146,12 @@ public class Recipe {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getDescription() {
+        return description;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getTotalCost() {
