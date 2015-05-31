@@ -1,0 +1,26 @@
+[
+    { "name":"Moscow Mule",
+      "type":"hard alcohol",
+      "cost":"5.00",
+      "calories": "200",
+      "ingredients":[
+        "lime juice",
+        "vodka",
+        "ginger beer",
+        "ice cubes"
+      ],
+      "quantity": [
+        "0.5",
+        "2.0",
+        "6.0",
+        "3.0"
+      ],
+      "instructions":[
+        "Squeez lime juice into glass",
+        "Add 2 or 3 ice cubes",
+        "Pour in vodka",
+        "Fill with cold ginger beer",
+        "Serve with a stirring rod"
+      ]
+    }
+]
