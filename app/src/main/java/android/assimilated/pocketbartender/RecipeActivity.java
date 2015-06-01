@@ -1,9 +1,15 @@
 package android.assimilated.pocketbartender;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Created by iguest on 5/28/15.
@@ -14,6 +20,36 @@ public class RecipeActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //filler value; this needs to be received as an intent from the search function
+        //which will determine exactly what recipe to display
+        final Recipe currentRecipe = null;
+
+        //filler change
+        //title text box txtRecipeName
+        //description text box txtDescr
+        //start button btnNext
+
+        //uses fields from MainApp to access recipes and ingredients
+
+        //use strings from strings.xml for button text
+        TextView txtRecipeName = (TextView) findViewById(R.id.txtRecipeName);
+        final Button btnNext = (Button) findViewById(R.id.btnNext);
+
+        txtRecipeName.setText(currentRecipe.getName());
+        btnNext.setText(R.string.start);
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        Bundle recipeBundle = new Bundle();
+        recipeBundle.putString("recipe", currentRecipe.getName());
+
+        RecipeFragment recipeFragment = new RecipeFragment();
+        recipeFragment.setArguments(recipeBundle);
+
+        ft.add(R.id.container, recipeFragment);
+        ft.commit();
     }
 
 
