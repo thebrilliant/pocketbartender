@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#ff312728">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/search"
+        android:id="@+id/txtResultTitle"
+        android:textSize="40sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ff98343c"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Search Term"
+        android:id="@+id/txtSearch"
+        android:layout_below="@+id/txtResultTitle"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ff98343c"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/result"
+        android:id="@+id/txtResult"
+        android:layout_below="@+id/txtSearch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ff7e313a"
+        android:textSize="25sp"
+        android:padding="10dp"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lstResult"
+        android:layout_below="@+id/txtResult"
+        android:layout_centerHorizontal="true"
+        android:background="#ff7e6061"
+        android:layout_margin="10dp"
+        android:divider="#ff572a2a"/>
+
+</RelativeLayout>
