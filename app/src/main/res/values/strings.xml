@@ -9,4 +9,6 @@
     <string name="start">Start</string>
     <string name="next">Next Step</string>
     <string name="finish">Finish!</string>
+    <string name="search">You searched for:</string>
+    <string name="result">Results:</string>
 </resources>
