@@ -24,6 +24,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by iguest on 5/28/15.
@@ -35,7 +37,8 @@ public class MainApp extends Application {
     ArrayList<Ingredient> ingredientList;
     ArrayList<Recipe> recipeList;
 
-    HashMap<String, Recipe> nameSearch;
+    HashMap<String, List<Recipe>> nameSearch;
+    HashMap<String, List<Recipe>> ingredientSearch;
 
     public MainApp() {
         //ensures that there is only one instance of QuizApp
@@ -51,6 +54,7 @@ public class MainApp extends Application {
         super.onCreate();
 
         today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        //Start of just testing stuff until JSON downloading sorted out!!
         ingredientList = new ArrayList<Ingredient>();
         Ingredient ingredient1 = new Ingredient("Lime juice", "Citrus", 0.50, 10, "oz");
         ingredientList.add(ingredient1);
@@ -80,6 +84,8 @@ public class MainApp extends Application {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        //End of testing stuff
+        buildSearchByIngredient();
 
         buildSearchByName();
 
@@ -90,31 +96,23 @@ public class MainApp extends Application {
                 @Override
                 public void run() {
                     try {
-
                         ingredientList = new ArrayList<Ingredient>();
-
                         // grabbing JSON files from student server
                         String ingredientsJSON = getJSON("http://students.washington.edu/ghirme/info498c/ingredients.json");
                         String recipesJSON = getJSON("http://students.washington.edu/ghirme/info498c/recipes.json");
-
                         JSONArray ingredientsObject;
                         JSONArray recipesObject;
-
                         ingredientsObject = new JSONArray(ingredientsJSON);
                         recipesObject = new JSONArray(recipesJSON);
-
                         for (int i = 0; i < ingredientsObject.length(); i++) {
                             JSONObject jsonObj = ingredientsObject.getJSONObject(i);
                             String name = jsonObj.getString("name");
                             String type = jsonObj.getString("type");
                             Double pricePerUnit = Double.parseDouble(jsonObj.getString("pricePerUnit"));
                             String unit = jsonObj.getString("unit");
-
                             Ingredient ingredient = new Ingredient(name, type, pricePerUnit, 0, unit);
                             ingredientList.add(ingredient);
-
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -127,21 +125,116 @@ public class MainApp extends Application {
             catch(InterruptedException e) {
                 e.printStackTrace();
             }
-
             Log.i("MainApp", ingredientList.size() + ""); */
     }
 
+    //Initializes and builds the search directory that allows user to search for a specific drink by name.
+    //Allows for searching by partial matches.
     public void buildSearchByName() {
-        HashMap directory = new HashMap<String, Recipe>();
+        nameSearch = new HashMap<String, List<Recipe>>();
         for(int i = 0; i < recipeList.size(); i++) {
             Recipe recipe = recipeList.get(i);
-            String name = recipe.getName();
+            String name = (recipe.getName()).toLowerCase();
 
-            String[] words = name.split(" ");
+            String[] words = name.split("\\s+");
             for(int j = 0; j < words.length; j++) {
-                directory.put(words[j].toLowerCase(), recipe);
+                Set<String> indexedWords = nameSearch.keySet();
+                if(indexedWords.contains(words[j])) {
+                    List<Recipe> list = nameSearch.get(name);
+                    list.add(recipe);
+                    nameSearch.put(words[j], list);
+                } else {
+                    List<Recipe> list = new ArrayList<Recipe>();
+                    list.add(recipe);
+                    nameSearch.put(words[j], list);
+                }
             }
         }
+    }
+
+    //Initializes and builds the search directory (ingredientSearch) that allows for the user to search for recipes based
+    //on an ingredient. Built based on Ingredient names, so 'lime' and 'lime juice' are two different things.
+    public void buildSearchByIngredient() {
+        ingredientSearch = new HashMap<String, List<Recipe>>();
+        for(int i = 0; i < recipeList.size(); i++) {
+            Recipe recipe = recipeList.get(i);
+            Map<Ingredient, Double> recipeIngredients = recipe.getIngredientToQuantity();
+            Set<Ingredient> ingredients = recipeIngredients.keySet();
+            for(Ingredient ingredient : ingredients) {
+                String name = (ingredient.getName()).toLowerCase();
+                Set<String> indexedIngredients = ingredientSearch.keySet();
+                if(indexedIngredients.contains(name)) {
+                    List<Recipe> recipes = ingredientSearch.get(name);
+                    //Ensures no duplicate recipes
+                    if(!containsRecipe(recipe, recipes)) {
+                        recipes.add(recipe);
+                        ingredientSearch.put(name, recipes);
+                    }
+                } else {
+                    List<Recipe> list = new ArrayList<Recipe>();
+                    list.add(recipe);
+                    ingredientSearch.put(name, list);
+                }
+            }
+        }
+    }
+
+    private boolean containsRecipe(Recipe recipe, List<Recipe> list) {
+        for(Recipe entry : list) {
+            if(recipe == entry) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Returns results for recipes that are relevant to the phrase the user typed in.
+    //RELEVANCE: If there is a perfect match it goes first in the list, the rest are just partial
+    //matches, no relevance for those yet.
+    //PARAMETERS: String (user search phrase).
+    //RETURNS: List<Recipe> Search results.
+    public List<Recipe> searchByName(String phrase) {
+        String keyphrase = phrase.trim().toLowerCase();
+        List<Recipe> results = new ArrayList<Recipe>();
+
+        //Attempt to find perfect match
+        for(Recipe recipe : recipeList) {
+            String name = recipe.getName().toLowerCase();
+            if(keyphrase.equals(name)) {
+                results.add(recipe);
+            }
+        }
+
+        //Find partial matches
+        String[] keyWords = keyphrase.split("\\s+");
+        Set<String> indexedWords = nameSearch.keySet();
+        for(String word : keyWords) {
+            if(indexedWords.contains(word)) {
+                List<Recipe> currentRecipes = nameSearch.get(word);
+                for(Recipe entry : currentRecipes) {
+                    if(!containsRecipe(entry, results)) {
+                        results.add(entry);
+                    }
+                }
+            }
+        }
+        return results;
+    }
+
+    //Returns results for recipes that are relevant to the ingredient the user typed in.
+    //PARAMETERS: String (user search phrase).
+    //RETURNS: List<Recipe> Search results.
+    public List<Recipe> searchByIngredient(String phrase) {
+        List<Recipe> results = new ArrayList<Recipe>();
+        String keyIngredient = phrase.trim().toLowerCase();
+
+        Set<String> indexedIngredients = ingredientSearch.keySet();
+
+        if(indexedIngredients.contains(keyIngredient)) {
+            results.addAll(ingredientSearch.get(keyIngredient));
+        }
+
+        return results;
     }
 
     // takes a URL String and returns the JSON as a string
