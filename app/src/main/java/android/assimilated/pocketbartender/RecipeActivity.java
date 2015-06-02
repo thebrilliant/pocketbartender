@@ -19,7 +19,7 @@ public class RecipeActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.recipe_layout);
 
         //filler value; this needs to be received as an intent from the search function
         //which will determine exactly what recipe to display
