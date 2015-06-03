@@ -55,9 +55,6 @@ public class MainApp extends Application {
 
         today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
 
-        buildSearchByIngredient();
-        buildSearchByName();
-
             // Gets all the JSON goodiez
             // Has to be done in its own thread or shit hits the fan
             Thread thread = new Thread(new Runnable() {
@@ -105,6 +102,9 @@ public class MainApp extends Application {
             catch(InterruptedException e) {
                 e.printStackTrace();
             }
+
+        buildSearchByIngredient();
+        buildSearchByName();
     }
 
     //Initializes and builds the search directory that allows user to search for a specific drink by name.
@@ -213,6 +213,19 @@ public class MainApp extends Application {
             results.addAll(ingredientSearch.get(keyIngredient));
         }
 
+        return results;
+    }
+
+    //Returns results for recipes that are under a max amount passed in.
+    //RETURNS: List<Recipe> Search results.
+    //**NOT TEST YET**
+    public List<Recipe> searchByAmount(double max) {
+        List<Recipe> results = new ArrayList<Recipe>();
+        for(Recipe recipe: recipeList) {
+            if(recipe.getTotalCost() <= max) {
+                results.add(recipe);
+            }
+        }
         return results;
     }
 
