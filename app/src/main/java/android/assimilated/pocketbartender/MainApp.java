@@ -54,64 +54,44 @@ public class MainApp extends Application {
         super.onCreate();
 
         today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        //Start of just testing stuff until JSON downloading sorted out!!
-        ingredientList = new ArrayList<Ingredient>();
-        Ingredient ingredient1 = new Ingredient("Lime juice", "Citrus", 0.50, 10, "oz");
-        ingredientList.add(ingredient1);
-        Ingredient ingredient2 = new Ingredient("Ice cubes", "Chiller", 0.00, 2, "cube");
-        ingredientList.add(ingredient2);
-        Ingredient ingredient3 = new Ingredient("vodka", "hard", 1.00, 1, "oz");
-        ingredientList.add(ingredient3);
-        Ingredient ingredient4 = new Ingredient("ginger beer", "soda", 2.00, 3, "oz");
-        ingredientList.add(ingredient4);
 
-        recipeList = new ArrayList<Recipe>();
-
-
-
-        Recipe recipe = new Recipe();
-        recipe.setIngredientList(ingredientList);
-
-        try {
-            JSONArray jsonData = new JSONArray(loadJSONFromAsset());
-
-            for(int i = 0; i < jsonData.length(); i++) {
-                JSONObject jsonObj = jsonData.getJSONObject(i);
-                Recipe addRecipe = new Recipe(jsonObj);
-                recipeList.add(addRecipe);
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //End of testing stuff
         buildSearchByIngredient();
-
         buildSearchByName();
 
-        // Gets all the JSON goodiez
-        // Has to be done in its own thread or shit hits the fan
-/*
+            // Gets all the JSON goodiez
+            // Has to be done in its own thread or shit hits the fan
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         ingredientList = new ArrayList<Ingredient>();
+                        recipeList = new ArrayList<Recipe>();
                         // grabbing JSON files from student server
                         String ingredientsJSON = getJSON("http://students.washington.edu/ghirme/info498c/ingredients.json");
                         String recipesJSON = getJSON("http://students.washington.edu/ghirme/info498c/recipes.json");
+
                         JSONArray ingredientsObject;
                         JSONArray recipesObject;
+
                         ingredientsObject = new JSONArray(ingredientsJSON);
                         recipesObject = new JSONArray(recipesJSON);
+
+                        // create ingredient list
                         for (int i = 0; i < ingredientsObject.length(); i++) {
                             JSONObject jsonObj = ingredientsObject.getJSONObject(i);
-                            String name = jsonObj.getString("name");
-                            String type = jsonObj.getString("type");
-                            Double pricePerUnit = Double.parseDouble(jsonObj.getString("pricePerUnit"));
-                            String unit = jsonObj.getString("unit");
-                            Ingredient ingredient = new Ingredient(name, type, pricePerUnit, 0, unit);
+                            Ingredient ingredient = new Ingredient(jsonObj);
                             ingredientList.add(ingredient);
+                        }
+
+                        // allows ingredients to be accessed statically
+                        Recipe recipe = new Recipe();
+                        recipe.setIngredientList(ingredientList);
+
+                        // create recipes list
+                        for (int j = 0; j < recipesObject.length(); j++) {
+                            JSONObject currJSON = recipesObject.getJSONObject(j);
+                            Recipe currRecipe = new Recipe(currJSON);
+                            recipeList.add(currRecipe);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -125,7 +105,6 @@ public class MainApp extends Application {
             catch(InterruptedException e) {
                 e.printStackTrace();
             }
-            Log.i("MainApp", ingredientList.size() + ""); */
     }
 
     //Initializes and builds the search directory that allows user to search for a specific drink by name.
