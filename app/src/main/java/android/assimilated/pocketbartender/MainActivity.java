@@ -1,8 +1,10 @@
 package android.assimilated.pocketbartender;
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
 import android.support.v7.app.ActionBarActivity;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -37,6 +40,9 @@ public class MainActivity extends ActionBarActivity {
     EditText search;
     RadioGroup filter;
     Button goSearch;
+    RadioButton byName;
+    RadioButton byIngredient;
+    RadioButton byCost;
     String searchText;
     String filterType;
 
@@ -55,6 +61,10 @@ public class MainActivity extends ActionBarActivity {
         search = (EditText) findViewById(R.id.userText);
         filter = (RadioGroup) findViewById(R.id.options);
         goSearch = (Button) findViewById(R.id.btnGo);
+        byName = (RadioButton) findViewById(R.id.name);
+        byIngredient = (RadioButton) findViewById(R.id.ingredient);
+        byCost = (RadioButton) findViewById(R.id.cost);
+
         // Gets all the JSON goodiez
         // Has to be done in its own thread or shit hits the fan
 //        Thread thread = new Thread(new Runnable(){
@@ -80,9 +90,40 @@ public class MainActivity extends ActionBarActivity {
 //        });
 //
 //        thread.start();
-        
+
+        filter.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == byName.getId()) {
+                    filterType = (String) byName.getText();
+                } else if (checkedId == byIngredient.getId()){
+                    filterType = (String) byIngredient.getText();
+                } else {
+                    filterType = (String) byCost.getText();
+                }
+            }
+        });
+
+        goSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchText = search.getText().toString();
+                if (filterType == null) {
+                    Toast.makeText(MainActivity.this, "Please select what filter you want to search with", Toast.LENGTH_LONG).show();
+                } else if (searchText == null) {
+                    Toast.makeText(MainActivity.this, "Please enter the text you want to search", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent next = new Intent(MainActivity.this, ResultActivity.class);
+                    next.putExtra("search", searchText);
+                    next.putExtra("type", filterType);
+
+                    startActivity(next);
+                }
+            }
+        });
+
     }
-    
+
     // takes a URL String and returns the JSON as a string
     public String getJSON(String address){
         StringBuilder builder = new StringBuilder();
@@ -109,7 +150,7 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
         }
         return builder.toString();
-    }    
+    }
 
 
     @Override
