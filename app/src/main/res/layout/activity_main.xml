@@ -29,14 +29,24 @@
         android:textSize="30sp"
         android:layout_marginTop="20dp"
         android:textColor="#ff7e313a" />
+
+    <ImageView
+        android:layout_width="166dp"
+        android:layout_height="200dp"
+        android:id="@+id/drinkPic"
+        android:layout_below="@+id/drinkTitle"
+        android:layout_alignParentLeft="true"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/drinkTitle"
         android:text="Description"
         android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ff7e313a" />
+        android:layout_alignRight="@+id/drinkTitle"
+        android:textColor="#ff7e313a"
+        android:id="@+id/description"
+        android:layout_margin="10dp"/>
 
     <EditText
         android:layout_width="fill_parent"

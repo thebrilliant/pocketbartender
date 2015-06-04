@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -37,6 +39,9 @@ public class MainActivity extends ActionBarActivity {
     MainApp app;
     int day;
 
+    ImageView drinkImg;
+    TextView descr;
+
     EditText search;
     RadioGroup filter;
     Button goSearch;
@@ -53,17 +58,22 @@ public class MainActivity extends ActionBarActivity {
 
         app = (MainApp) getApplication();
         day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        if (day != app.today) {
+        /*if (day != app.today) {
             //update drink of the day
             app.today = day;
-        }
+        }*/
 
+        drinkImg = (ImageView) findViewById(R.id.drinkPic);
+        descr = (TextView) findViewById(R.id.description);
         search = (EditText) findViewById(R.id.userText);
         filter = (RadioGroup) findViewById(R.id.options);
         goSearch = (Button) findViewById(R.id.btnGo);
         byName = (RadioButton) findViewById(R.id.name);
         byIngredient = (RadioButton) findViewById(R.id.ingredient);
         byCost = (RadioButton) findViewById(R.id.cost);
+
+        drinkImg.setImageResource(R.drawable.moscowmule);
+        descr.setText("TESTING!!!!!");
 
         // Gets all the JSON goodiez
         // Has to be done in its own thread or shit hits the fan
