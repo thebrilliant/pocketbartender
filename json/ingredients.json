@@ -1,0 +1,128 @@
+[
+    { "name":"Lime",
+      "unit":"unit",
+      "type":"Citrus",
+      "cost":"0.50",
+      "calories": "10"
+    }, 
+    { "name":"Ice",
+      "unit":"unit",
+      "type":"Chiller",
+      "cost":"0.00",
+      "calories": "0"
+    }, 
+    { "name":"Lime Juice",
+      "unit":"oz",
+      "type":"Juice",
+      "cost":"0.30",
+      "calories": "30"
+    }, 
+    { "name":"Vodka",
+      "unit":"oz",
+      "type":"Alcohol",
+      "cost":"0.60",
+      "calories": "15"
+    }, 
+    { "name":"Ginger Beer",
+      "unit":"oz",
+      "type":"Alcohol",
+      "cost":"0.45",
+      "calories": "20"
+    },
+    {"name":"Coconut Rum",
+      "unit":"oz",
+      "type":"Alcohol",
+      "cost":"0.40",
+      "calories": "51"
+    },
+    {"name":"Pineapple Juice",
+      "unit":"oz",
+      "type":"Juice",
+      "cost":"0.10",
+      "calories": "10"
+    },
+    {"name":"Grenadine Syrup",
+      "unit":"tbsp",
+      "type":"Syrup",
+      "cost":"0.50",
+      "calories": "54"
+    },
+    {"name":"Tequila",
+      "unit":"oz",
+      "type":"Alcohol",
+      "cost":"0.35",
+      "calories": "64"
+    },
+    {"name":"Grapefruit Soda",
+      "unit":"oz",
+      "type":"Soda",
+      "cost":"0.10",
+      "calories": "13"
+    },
+    {"name":"Whiskey",
+      "unit":"oz",
+      "type":"Alcohol",
+      "cost":"70",
+      "calories": "0.40"
+    },
+    {"name":"Ginger Ale",
+      "unit":"oz",
+      "type":"Soda",
+      "cost":"0.05",
+      "calories": "10"
+    },
+    {"name":"Lemon Twist",
+      "unit":"unit",
+      "type":"Garnish",
+      "cost":"0.10",
+      "calories": "3"
+    },
+    {"name":"Gin",
+      "unit":"oz",
+      "type":"Alcohol",
+      "cost":"0.50",
+      "calories": "73"
+    },
+    {"name":"Tonic Water",
+      "unit":"oz",
+      "type":"Soda",
+      "cost":"0.10",
+      "calories": "10"
+    },
+    {"name":"Rum",
+      "unit":"oz",
+      "type":"Alcohol",
+      "cost":"0.42",
+      "calories": "64"
+    },
+    {"name":"Coke",
+      "unit":"oz",
+      "type":"Soda",
+      "cost":"0.12",
+      "calories": "12"
+    },
+    {"name":"Worcestershire Sauce",
+      "unit":"oz",
+      "type":"Sauce",
+      "cost":"0.10",
+      "calories": "3"
+    },
+    {"name":"Tabasco Sauce",
+      "unit":"oz",
+      "type":"Sauce",
+      "cost":"0.10",
+      "calories": "1"
+    },
+    {"name":"Tomato Juice",
+      "unit":"oz",
+      "type":"Juice",
+      "cost":"0.20",
+      "calories": "20"
+    },
+    {"name":"Celery",
+      "unit":"unit",
+      "type":"Vegetable",
+      "cost":".50",
+      "calories": "2"
+    }
+]
