@@ -1,6 +1,7 @@
 package android.assimilated.pocketbartender;
 
 import android.content.Intent;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
@@ -35,6 +36,7 @@ public class MainActivity extends ActionBarActivity {
 
     EditText search;
     RadioGroup filter;
+    Button goSearch;
     String searchText;
     String filterType;
 
@@ -50,6 +52,9 @@ public class MainActivity extends ActionBarActivity {
             app.today = day;
         }
 
+        search = (EditText) findViewById(R.id.userText);
+        filter = (RadioGroup) findViewById(R.id.options);
+        goSearch = (Button) findViewById(R.id.btnGo);
         // Gets all the JSON goodiez
         // Has to be done in its own thread or shit hits the fan
 //        Thread thread = new Thread(new Runnable(){
