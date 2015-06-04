@@ -1,6 +1,8 @@
 package android.assimilated.pocketbartender;
 
 import android.content.Intent;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.SearchView;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -31,8 +33,10 @@ public class MainActivity extends ActionBarActivity {
     MainApp app;
     int day;
 
-    SearchView search;
+    EditText search;
+    RadioGroup filter;
     String searchText;
+    String filterType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,6 @@ public class MainActivity extends ActionBarActivity {
             //update drink of the day
             app.today = day;
         }
-
-        search = (SearchView) findViewById(R.id.searchView);
 
         // Gets all the JSON goodiez
         // Has to be done in its own thread or shit hits the fan
@@ -73,26 +75,6 @@ public class MainActivity extends ActionBarActivity {
 //        });
 //
 //        thread.start();
-
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                searchText = s;
-                Intent next = new Intent(MainActivity.this, ResultActivity.class);
-                next.putExtra("search", searchText);
-
-                Log.i("MainActivity", "Firing search intent: " + next);
-                startActivity(next);
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                searchText = s;
-                return false;
-            }
-        });
         
     }
     
