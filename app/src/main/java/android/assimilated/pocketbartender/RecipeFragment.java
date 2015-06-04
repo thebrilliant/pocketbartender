@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by christina3135 on 5/31/2015.
@@ -19,9 +22,10 @@ import java.util.List;
 public class RecipeFragment extends Fragment {
     private String recipeName;
     private Activity hostActivity;
-    private MainApp app;
+    private MainApp app = (MainApp) hostActivity.getApplication();
     private int currentStepNum;
     private List<String> instructions;
+    private ArrayList<Recipe> recipeList = app.recipeList;
 
     public RecipeFragment() {
         // Required empty public constructor
@@ -39,15 +43,16 @@ public class RecipeFragment extends Fragment {
         // Inflate the layout for this fragment
         final View fragmentView = inflater.inflate(R.layout.recipe_fragment, container, false);
 
-        app = (MainApp) hostActivity.getApplication();
-
-        recipeName = getArguments().getString("recipe");
-        //temporary filler value for recipe
-        final Recipe currentRecipe = null;
-        //TODO: find current recipe from list field in MainApp
-        //Recipe currentRecipe = app.recipeList
-
         if (getArguments() != null) {
+
+            recipeName = getArguments().getString("recipe");
+            //temporary filler value for recipe
+            //final Recipe currentRecipe = null;
+            final Recipe currentRecipe = findRecipe(recipeName);
+
+            if (currentRecipe == null) {
+                throw new IllegalArgumentException("Given recipe does not exist. Recipe name: " + recipeName);
+            }
 
             final Button btnNext = (Button) hostActivity.findViewById(R.id.btnNext);
             final TextView txtDescr = (TextView) hostActivity.findViewById(R.id.txtDescr);
@@ -61,12 +66,25 @@ public class RecipeFragment extends Fragment {
                 public void onClick(View v) {
                     if (btnNext.getText().toString().equals(R.string.start)) {
                         btnNext.setText(R.string.next);
-                        currentStepNum = 0;
+                        currentStepNum = -1;
 
                         instructions = currentRecipe.getInstructions();
                     }
 
-                    if (currentStepNum < instructions.size()) {
+                    if (currentStepNum == -1) {
+                        String ingredients = "Ingredients required for this recipe: \n";
+
+                        Map<Ingredient, Double> ingredientMap = currentRecipe.getIngredientToQuantity();
+                        for (Ingredient currentIngredient : ingredientMap.keySet()) {
+                            String ingredientString = ingredientMap.get(currentIngredient) + " " +
+                                    currentIngredient.getUnit() + "s " + currentIngredient.getName();
+
+                            ingredients += ingredientString + "\n";
+                        }
+
+                        txtDescr.setText(ingredients);
+                        currentStepNum++;
+                    } else if (currentStepNum < instructions.size()) {
                         String currentInstruction = instructions.get(currentStepNum);
 
                         txtDescr.setText(currentInstruction);
@@ -87,5 +105,15 @@ public class RecipeFragment extends Fragment {
 
 
         return fragmentView;
+    }
+
+    private Recipe findRecipe(String desiredRecipeName) {
+        for (Recipe currentRecipe : recipeList) {
+            if (currentRecipe.getName().equalsIgnoreCase(desiredRecipeName)) {
+                return currentRecipe;
+            }
+        }
+
+        return null;
     }
 }

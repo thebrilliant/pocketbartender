@@ -22,10 +22,6 @@ public class Recipe {
     //caloriesPerOz required only for the optional user story
     private int totalCalories;
 
-    public Recipe() {
-        this(null, null, 0, null, null, 0);
-    }
-
     //this is probably the only constructor that matters; constructs a recipe object using a given
     //JSON object. Assumes that the Ingredients list has already been populated.
     public Recipe(JSONObject jsonObject) throws JSONException{
@@ -38,9 +34,11 @@ public class Recipe {
         this.instructions = jsonArrayToArrayList(instructionsArray);
 
         //create ingredient to quantity mapping
-        ingredientToQuantity = new HashMap<Ingredient, Double>();
+        this.ingredientToQuantity = new HashMap<Ingredient, Double>();
         JSONArray ingredientArray = jsonObject.getJSONArray("ingredients");
         JSONArray quantityArray = jsonObject.getJSONArray("quantity");
+        this.totalCost = 0;
+        this.totalCalories = 0;
         for (int i = 0; i < ingredientArray.length(); i++) {
             //find the ingredient object with the given name
             String ingredientName = ingredientArray.get(i).toString();
@@ -52,19 +50,11 @@ public class Recipe {
             }
 
             double quantity = Double.parseDouble(quantityArray.get(i).toString());
-            ingredientToQuantity.put(currentIngredient, quantity);
-        }
+            this.ingredientToQuantity.put(currentIngredient, quantity);
 
-        //calculates total calories and total cost of the given recipe
-        double totalCalories = 0;
-        double totalCost = 0;
-        for (Ingredient currentIngredient : ingredientToQuantity.keySet()) {
-            double amountOfCurrentIngredient = ingredientToQuantity.get(currentIngredient);
-            totalCost += currentIngredient.getPricePerUnit() * amountOfCurrentIngredient;
-            totalCalories += currentIngredient.getCaloriesPerUnit() * amountOfCurrentIngredient;
+            this.totalCost += currentIngredient.getPricePerUnit() * quantity;
+            this.totalCalories += (int) currentIngredient.getCaloriesPerUnit() * quantity;
         }
-        this.totalCalories = (int) totalCalories;
-        this.totalCost = totalCost;
     }
 
     //converts a JSON array to an array list
@@ -87,37 +77,6 @@ public class Recipe {
         }
 
         return null;
-    }
-
-    public Recipe (String name, String description, Map<Ingredient, Double> ingredientToQuantity,
-                   List<String> instructions) {
-        //recalculates cost and calories each time a new Recipe object is created
-
-        double unroundedTotalCalories = 0;
-        double totalCost = 0;
-        for (Ingredient currentIngredient : ingredientToQuantity.keySet()) {
-            double amountOfCurrentIngredient = ingredientToQuantity.get(currentIngredient);
-            totalCost += currentIngredient.getPricePerUnit() * amountOfCurrentIngredient;
-            unroundedTotalCalories += currentIngredient.getCaloriesPerUnit() * amountOfCurrentIngredient;
-        }
-        int totalCalories = (int) unroundedTotalCalories;
-
-        setValues(name, description, totalCost, ingredientToQuantity, instructions, totalCalories);
-    }
-
-    public Recipe(String name, String description, int totalCost, Map<Ingredient, Double> ingredientToQuantity,
-                  List<String> instructions, int totalCalories) {
-        setValues(name, description, totalCost, ingredientToQuantity, instructions, totalCalories);
-    }
-
-    private void setValues(String name, String description, double totalCost, Map<Ingredient, Double> ingredientToQuantity,
-                           List<String> instructions, int totalCalories) {
-        this.name = name;
-        this.description = description;
-        this.totalCost = totalCost;
-        this.ingredientToQuantity = ingredientToQuantity;
-        this.instructions = instructions;
-        this.totalCalories = totalCalories;
     }
 
     //getters and setters
@@ -183,6 +142,41 @@ public class Recipe {
     }
 
     public void setTotalCalories(int totalCalories) {
+        this.totalCalories = totalCalories;
+    }
+
+    public Recipe() {
+        this(null, null, 0, null, null, 0);
+    }
+
+    public Recipe (String name, String description, Map<Ingredient, Double> ingredientToQuantity,
+                   List<String> instructions) {
+        //recalculates cost and calories each time a new Recipe object is created
+
+        double unroundedTotalCalories = 0;
+        double totalCost = 0;
+        for (Ingredient currentIngredient : ingredientToQuantity.keySet()) {
+            double amountOfCurrentIngredient = ingredientToQuantity.get(currentIngredient);
+            totalCost += currentIngredient.getPricePerUnit() * amountOfCurrentIngredient;
+            unroundedTotalCalories += currentIngredient.getCaloriesPerUnit() * amountOfCurrentIngredient;
+        }
+        int totalCalories = (int) unroundedTotalCalories;
+
+        setValues(name, description, totalCost, ingredientToQuantity, instructions, totalCalories);
+    }
+
+    public Recipe(String name, String description, int totalCost, Map<Ingredient, Double> ingredientToQuantity,
+                  List<String> instructions, int totalCalories) {
+        setValues(name, description, totalCost, ingredientToQuantity, instructions, totalCalories);
+    }
+
+    private void setValues(String name, String description, double totalCost, Map<Ingredient, Double> ingredientToQuantity,
+                           List<String> instructions, int totalCalories) {
+        this.name = name;
+        this.description = description;
+        this.totalCost = totalCost;
+        this.ingredientToQuantity = ingredientToQuantity;
+        this.instructions = instructions;
         this.totalCalories = totalCalories;
     }
 }

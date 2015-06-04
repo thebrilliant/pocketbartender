@@ -15,29 +15,15 @@ public class Ingredient {
     //caloriesPerUnit required only for the optional user story
     private int caloriesPerUnit;
 
-    public Ingredient() {
-        setValues(null, null, 0, 0, "");
-    }
-
     public Ingredient(JSONObject jsonObject) throws JSONException {
         //to be completed once structure of JSON file is determined
         this.name = jsonObject.getString("name");
         this.type = jsonObject.getString("type");
-        this.pricePerUnit = jsonObject.getDouble("cost");
-        this.caloriesPerUnit = jsonObject.getInt("calories");
+        this.pricePerUnit = Double.parseDouble(jsonObject.getString("cost"));
+        this.caloriesPerUnit = Integer.parseInt(jsonObject.getString("cost"));
+        //this.pricePerUnit = jsonObject.getDouble("cost");
+        //this.caloriesPerUnit = jsonObject.getInt("calories");
         this.unit = jsonObject.getString("unit");
-    }
-
-    public Ingredient(String name, String type, double pricePerUnit, int caloriesPerUnit, String unit) {
-        setValues(name, type, pricePerUnit, caloriesPerUnit, unit);
-    }
-
-    private void setValues(String name, String type, double pricePerUnit, int caloriesPerUnit, String unit) {
-        this.name = name;
-        this.type = type;
-        this.pricePerUnit = pricePerUnit;
-        this.caloriesPerUnit = caloriesPerUnit;
-        this.unit = unit;
     }
 
     //getters and setters
@@ -80,4 +66,23 @@ public class Ingredient {
     public void setCaloriesPerUnit(int caloriesPerUnit) {
         this.caloriesPerUnit = caloriesPerUnit;
     }
+
+    /*
+    // these constructors turned out to be unnecessary since JSON object will always be passed into Recipe
+    public Ingredient() {
+        setValues(null, null, 0, 0, "");
+    }
+
+    public Ingredient(String name, String type, double pricePerUnit, int caloriesPerUnit, String unit) {
+        setValues(name, type, pricePerUnit, caloriesPerUnit, unit);
+    }
+
+    private void setValues(String name, String type, double pricePerUnit, int caloriesPerUnit, String unit) {
+        this.name = name;
+        this.type = type;
+        this.pricePerUnit = pricePerUnit;
+        this.caloriesPerUnit = caloriesPerUnit;
+        this.unit = unit;
+    }
+    */
 }
