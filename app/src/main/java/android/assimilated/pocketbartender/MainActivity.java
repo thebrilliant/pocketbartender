@@ -41,6 +41,7 @@ public class MainActivity extends ActionBarActivity {
 
     ImageView drinkImg;
     TextView descr;
+    String description;
 
     EditText search;
     RadioGroup filter;
@@ -58,10 +59,10 @@ public class MainActivity extends ActionBarActivity {
 
         app = (MainApp) getApplication();
         day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        /*if (day != app.today) {
-            //update drink of the day
-            app.today = day;
-        }*/
+        int size = app.recipeList.size();
+        int index = day % size;
+        Recipe drinkOfTheDay = app.recipeList.get(index);
+        description = drinkOfTheDay.getName() + ": " + drinkOfTheDay.getDescription();
 
         drinkImg = (ImageView) findViewById(R.id.drinkPic);
         descr = (TextView) findViewById(R.id.description);
@@ -73,7 +74,7 @@ public class MainActivity extends ActionBarActivity {
         byCost = (RadioButton) findViewById(R.id.cost);
 
         drinkImg.setImageResource(R.drawable.moscowmule);
-        descr.setText("TESTING!!!!!");
+        descr.setText(description);
 
         // Gets all the JSON goodiez
         // Has to be done in its own thread or shit hits the fan

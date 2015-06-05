@@ -90,6 +90,7 @@ public class MainApp extends Application {
                             Recipe currRecipe = new Recipe(currJSON);
                             recipeList.add(currRecipe);
                         }
+                        Log.d("MainApp", "" + recipeList.size() + " " + ingredientList.size());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
