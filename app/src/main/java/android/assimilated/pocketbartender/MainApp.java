@@ -151,9 +151,8 @@ public class MainApp extends Application {
             for(int j = 0; j < words.length; j++) {
                 Set<String> indexedWords = nameSearch.keySet();
                 if(indexedWords.contains(words[j])) {
-                    List<Recipe> list = nameSearch.get(name);
-                    Log.d("Main App", "Current Recipe:" + recipe.getName());
-                    Log.d("Main App", "Current List:" + list.toString());
+                    //List<Recipe> list = nameSearch.get(name);
+                    List<Recipe> list = nameSearch.get(words[j]);
                     list.add(recipe);
                     nameSearch.put(words[j], list);
                 } else {
