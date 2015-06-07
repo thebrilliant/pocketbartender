@@ -64,7 +64,7 @@ public class MainApp extends Application {
                         ingredientList = new ArrayList<Ingredient>();
                         recipeList = new ArrayList<Recipe>();
                         // grabbing JSON files from student server
-                        String ingredientsJSON = getJSON("http://students.washington.edu/ghirme/info498c/ingredients.json");
+                        String ingredientsJSON = getJSON("http://studentsz.washington.edu/ghirme/info498c/ingredients.json");
                         String recipesJSON = getJSON("http://students.washington.edu/ghirme/info498c/recipes.json");
 
                         JSONArray ingredientsObject;
@@ -91,8 +91,39 @@ public class MainApp extends Application {
                             recipeList.add(currRecipe);
                         }
                         Log.d("MainApp", "" + recipeList.size() + " " + ingredientList.size());
-                    } catch (Exception e) {
+                    } catch (Exception e) { // loading JSON from website didn't work, going to assets
+                        try {
+                            InputStream ingredientsInputStream = getAssets().open("ingredients.json");
+                            InputStream recipesInputStream = getAssets().open("recipes.json");
+
+                            JSONArray ingredientsJSON = new JSONArray(readJSONFile(ingredientsInputStream));
+                            JSONArray recipesJSON = new JSONArray(readJSONFile(recipesInputStream));
+
+                            for (int i = 0; i < ingredientsJSON.length(); i++) {
+                                JSONObject ingredientObj = ingredientsJSON.getJSONObject(i);
+                                Ingredient ingredient = new Ingredient(ingredientObj);
+                                ingredientList.add(ingredient);
+                            }
+
+                            // allows ingredients to be accessed statically
+                            Recipe recipeTemp = new Recipe();
+                            recipeTemp.setIngredientList(ingredientList);
+
+                            for (int j = 0; j < recipesJSON.length(); j++) {
+                                JSONObject recipeJSON = recipesJSON.getJSONObject(j);
+                                Recipe recipe = new Recipe(recipeJSON);
+                                recipeList.add(recipe);
+                            }
+                        } catch (Exception er) {
+                            Log.e("Access Assets", "Error Message: " + er.toString());
+                        }
+
+
                         e.printStackTrace();
+                        Log.i("Main App", "Error Accessing JSON from server, Message: " +
+                                e.getMessage());
+
+
                     }
                 }
             });
@@ -101,7 +132,7 @@ public class MainApp extends Application {
                 thread.join();
             }
             catch(InterruptedException e) {
-                e.printStackTrace();
+                Log.e("Main App Thread Joining", "Error Message:" + e.getMessage());
             }
 
         buildSearchByIngredient();
@@ -121,6 +152,8 @@ public class MainApp extends Application {
                 Set<String> indexedWords = nameSearch.keySet();
                 if(indexedWords.contains(words[j])) {
                     List<Recipe> list = nameSearch.get(name);
+                    Log.d("Main App", "Current Recipe:" + recipe.getName());
+                    Log.d("Main App", "Current List:" + list.toString());
                     list.add(recipe);
                     nameSearch.put(words[j], list);
                 } else {
@@ -228,6 +261,16 @@ public class MainApp extends Application {
             }
         }
         return results;
+    }
+
+    // reads given InputStream of JSON file and returns it in string format
+    private String readJSONFile(InputStream inputStream) throws IOException {
+        int size = inputStream.available();
+        byte[] buffer = new byte[size];
+        inputStream.read(buffer);
+        inputStream.close();
+
+        return new String(buffer, "UTF-8");
     }
 
     // takes a URL String and returns the JSON as a string

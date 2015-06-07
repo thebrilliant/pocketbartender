@@ -20,7 +20,7 @@ public class Ingredient {
         this.name = jsonObject.getString("name");
         this.type = jsonObject.getString("type");
         this.pricePerUnit = Double.parseDouble(jsonObject.getString("cost"));
-        this.caloriesPerUnit = Integer.parseInt(jsonObject.getString("cost"));
+        this.caloriesPerUnit = Integer.parseInt(jsonObject.getString("calories"));
         //this.pricePerUnit = jsonObject.getDouble("cost");
         //this.caloriesPerUnit = jsonObject.getInt("calories");
         this.unit = jsonObject.getString("unit");

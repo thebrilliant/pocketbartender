@@ -1,14 +1,14 @@
 [
     { "name":"Moscow Mule",
-      "type":"hard alcohol",
+      "description":"hard alcohol",
       "cost":"5.00",
-      "calories": "200",
-      "ingredients":[
-        "lime juice",
-        "vodka",
-        "ginger beer",
-        "ice cubes"
-      ],
+      "calories": "200", 
+      "ingredients":[        
+        "Lime Juice",
+        "Vodka",
+        "Ginger Beer",
+        "Ice"   
+      ], 
       "quantity": [
         "0.5",
         "2.0",
@@ -18,9 +18,140 @@
       "instructions":[
         "Squeez lime juice into glass",
         "Add 2 or 3 ice cubes",
-        "Pour in vodka",
+        "Pour in vodka", 
         "Fill with cold ginger beer",
         "Serve with a stirring rod"
       ]
+    },
+    { "name":"Bikini Martini",
+      "description":"An awesome drink to sip by the pool! Garnish with an orange wheel",
+      "cost":"5.00",
+      "calories": "100", 
+      "ingredients":[        
+        "Coconut Rum",
+        "Pineapple Juice",
+        "Vodka",
+        "Grenadine Syrup"   
+      ], 
+      "quantity": [
+        "1",
+        "1",
+        "0.75",
+        "1"
+      ],
+      "instructions":[
+        "Combine rum, vodka, and pineapple juice in a drink shaker",
+        "Shake firmly until frothy",
+        "Pour in a martini glass, add a touch of grenadine in the middle.",
+        "Garnish with an orange wheel"
+      ]
+    },
+    { "name":"The Paloma",
+      "description":"A Mexican style pink drink",
+      "cost":"5.00",
+      "calories": "100", 
+      "ingredients":[        
+        "Tequila",
+        "Grapefruit Soda"
+      ], 
+      "quantity": [
+        "2",
+        "6"
+      ],
+      "instructions":[
+        "Top one or two shots of tequila with grapefruit soda. The classic brand to use is grapefruit-flavored Jarritos, but you could try it with any brand you like, or DIY with grapefruit juice, seltzer, and simple syrup.",
+        "Garnish with a lime wedge."
+      ]  
+    },
+    { "name":"The Whiskey Ginger",
+      "description":"A classy whiskey delight",
+      "cost":"5.00",
+      "calories": "100", 
+      "ingredients":[        
+        "Whiskey",
+        "Ginger Ale",
+        "Lemon Twist" 
+      ], 
+      "quantity": [
+        "1",
+        "4",
+        "1"
+      ],
+      "instructions":[
+        "Top one or two shots of whiskey with ginger ale",
+        "Garnish with a lemon twist. It’s called a “Horse’s Neck” if it’s served with a long, curly strip of lemon peel."
+      ]  
+    },
+    { "name":"Gin & Tonic",
+      "description":"One of the most iconally classic drinks of all time",
+      "cost":"5.00",
+      "calories": "100", 
+      "ingredients":[        
+        "Gin",
+        "Tonic Water",
+        "Lime"
+      ], 
+      "quantity": [
+        "1",
+        "4",
+        "0.25"
+      ],
+      "instructions":[
+        "Top one or two shots gin with tonic water",
+        "Garnish with a lime wedge. Duh."
+      ]  
+    },
+    { "name":"The Cuba Libre",
+      "description":"Your basic rum and coke! Yum yum",
+      "cost":"5.00",
+      "calories": "100", 
+      "ingredients":[        
+        "Rum",
+        "Coke",
+        "Lime" 
+      ], 
+      "quantity": [
+        "2",
+        "8",
+        "0.25"
+      ],
+      "instructions":[
+        "Top one or two shots of rum with Coke",
+        "Garnish with a lime wedge. (NB that this drink only gets to use the fancy Spanish name if you serve it with lime.)"
+      ]
+    }, 
+    { "name":"Bloody Mary",
+      "description":"hard alcohol",
+      "cost":"5.00",
+      "calories": "200", 
+      "ingredients":[        
+        "Vodka",
+        "Worcestershire Sauce",
+        "Tabasco Sauce",
+        "Lime Juice",
+        "Tomato Juice",
+        "Lime",
+        "Celery",
+        "Ice"  
+      ], 
+      "quantity": [
+        "2.0",
+        "3.0",
+        "3.0",
+        "0.5",
+        "6.0",
+        "1.0",
+        "1.0",
+        "3.0"
+      ],
+      "instructions":[
+        "Pour vodka into salted glass with ice",
+        "Add the Worcestershire sauce",
+        "Add the Tabasco sauce", 
+        "Add the lime juice",
+        "Fill glass with tomato juice",
+        "Garnish with celery and/or lime wedge"
+      ]
     }
+  
 ]
