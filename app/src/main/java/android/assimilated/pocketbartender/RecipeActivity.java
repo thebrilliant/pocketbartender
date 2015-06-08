@@ -45,6 +45,17 @@ public class RecipeActivity extends ActionBarActivity {
         txtRecipeName.setText(currentRecipe.getName());
         btnNext.setText(R.string.start);
 
+        createFragment();
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createFragment();
+            }
+        });
+    }
+
+    private void createFragment() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
