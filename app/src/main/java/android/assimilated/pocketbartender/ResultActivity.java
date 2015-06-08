@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,8 +53,11 @@ public class ResultActivity extends ActionBarActivity {
             double cost = Double.parseDouble(userSearch);
             results = app.searchByAmount(cost);
         }
-
-        ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, results);
+        Recipe[] results2 = new Recipe[results.size()];
+        for(int i = 0; i < results.size(); i++) {
+            results2[i] = results.get(i);
+        }
+        RecipeArrayAdapter adapter = new RecipeArrayAdapter(this, (Recipe[]) results2);
         list.setAdapter(adapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
