@@ -60,9 +60,7 @@ public class RecipeFragment extends Fragment {
             final TextView txtDescr = (TextView) fragmentView.findViewById(R.id.txtDescr);
 
             if (btnNext.getText().toString().equalsIgnoreCase("Start")) {
-                txtDescr.setText("Description: " + currentRecipe.getDescription() + "\nCost: $" +
-                                Math.round(100 * currentRecipe.getTotalCost()) / 100.0 +
-                                "\nCalories: " + currentRecipe.getTotalCalories());
+                txtDescr.setText(descriptionToString(currentRecipe));
             }
 
             btnNext.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +92,7 @@ public class RecipeFragment extends Fragment {
                         txtDescr.setText(currentInstruction);
                         currentStepNum++;
                     } else {
-                        txtDescr.setText(currentRecipe.getDescription());
+                        txtDescr.setText(descriptionToString(currentRecipe));
                         btnNext.setText(R.string.start);
 
                         currentStepNum = 0;
@@ -109,6 +107,12 @@ public class RecipeFragment extends Fragment {
 
 
         return fragmentView;
+    }
+
+    private String descriptionToString(Recipe currentRecipe) {
+        return "Description: " + currentRecipe.getDescription() + "\nCost: $" +
+                Math.round(100 * currentRecipe.getTotalCost()) / 100.0 +
+                "\nCalories: " + currentRecipe.getTotalCalories();
     }
 
     private Recipe findRecipe(String desiredRecipeName) {
