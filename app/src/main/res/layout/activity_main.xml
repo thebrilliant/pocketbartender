@@ -43,7 +43,7 @@
         android:layout_below="@+id/drinkTitle"
         android:text="Description"
         android:textSize="20sp"
-        android:layout_alignRight="@+id/drinkTitle"
+        android:layout_alignParentRight="true"
         android:textColor="#ff7e313a"
         android:id="@+id/description"
         android:layout_margin="10dp"/>
