@@ -16,6 +16,9 @@ import android.widget.TextView;
  */
 public class RecipeActivity extends ActionBarActivity {
 
+    MainApp app;
+    Recipe currentRecipe;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +26,10 @@ public class RecipeActivity extends ActionBarActivity {
 
         //filler value; this needs to be received as an intent from the search function
         //which will determine exactly what recipe to display
-        final Recipe currentRecipe = null;
+        app = (MainApp) getApplication();
+        Intent launcher = getIntent();
+        String name = launcher.getStringExtra("recipe");
+        currentRecipe = app.searchByName(name).get(0);
 
         //filler change
         //title text box txtRecipeName

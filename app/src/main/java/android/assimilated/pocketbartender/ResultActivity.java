@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -58,7 +59,12 @@ public class ResultActivity extends ActionBarActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
+                Intent next = new Intent(ResultActivity.this, RecipeActivity.class);
+                String recipeName = results.get(position).getName();
+                next.putExtra("recipe", recipeName);
+
+                //Toast.makeText(ResultActivity.this, "recipe: " + recipeName, Toast.LENGTH_SHORT).show();
+                startActivity(next);
             }
         });
     }
