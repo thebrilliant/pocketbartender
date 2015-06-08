@@ -60,7 +60,9 @@ public class RecipeFragment extends Fragment {
             final TextView txtDescr = (TextView) fragmentView.findViewById(R.id.txtDescr);
 
             if (btnNext.getText().toString().equalsIgnoreCase("Start")) {
-                txtDescr.setText(currentRecipe.getDescription());
+                txtDescr.setText("Description: " + currentRecipe.getDescription() + "\nCost: $" +
+                                Math.round(100 * currentRecipe.getTotalCost()) / 100.0 +
+                                "\nCalories: " + currentRecipe.getTotalCalories());
             }
 
             btnNext.setOnClickListener(new View.OnClickListener() {
