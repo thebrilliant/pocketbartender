@@ -25,7 +25,7 @@ public class RecipeFragment extends Fragment {
     private String recipeName;
     private Activity hostActivity;
     private MainApp app;
-    private static int currentStepNum;
+    static int currentStepNum = -3;
     private static List<String> instructions;
     private static ArrayList<Recipe> recipeList;
     private static Map<Ingredient, Double> ingredientMap;
@@ -63,18 +63,13 @@ public class RecipeFragment extends Fragment {
             final Button btnNext = (Button) hostActivity.findViewById(R.id.btnNext);
             final TextView txtDescr = (TextView) fragmentView.findViewById(R.id.txtDescr);
 
-            if (btnNext.getText().toString().equalsIgnoreCase("Start")) {
+            if (currentStepNum == -2) {
                 txtDescr.setText(descriptionToString(currentRecipe));
-            }
-
-            if (btnNext.getText().toString().equalsIgnoreCase("Start")) {
+            } else if (currentStepNum == -1) {
                 btnNext.setText(R.string.next);
-                currentStepNum = -1;
 
                 instructions = currentRecipe.getInstructions();
-            }
 
-            if (currentStepNum == -1) {
                 String ingredients = "Ingredients required for this recipe: \n";
 
                 ingredientMap = currentRecipe.getIngredientToQuantity();
@@ -96,7 +91,7 @@ public class RecipeFragment extends Fragment {
                 txtDescr.setText(descriptionToString(currentRecipe));
                 btnNext.setText(R.string.start);
 
-                currentStepNum = 0;
+                currentStepNum = -2;
             }
 
             if (currentStepNum == instructions.size()) {
