@@ -45,6 +45,21 @@ public class RecipeActivity extends ActionBarActivity {
         txtRecipeName.setText(currentRecipe.getName());
         btnNext.setText(R.string.start);
 
+        RecipeFragment.currentStepNum = -2;
+
+        createFragment();
+
+        RecipeFragment.currentStepNum = -1;
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createFragment();
+            }
+        });
+    }
+
+    private void createFragment() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
@@ -53,7 +68,7 @@ public class RecipeActivity extends ActionBarActivity {
 
         RecipeFragment recipeFragment = new RecipeFragment();
         recipeFragment.setArguments(recipeBundle);
-
+        ft.setCustomAnimations(R.animator.flip_in_left,R.animator.flip_out_left,R.animator.flip_in_right,R.animator.flip_out_right);
         ft.add(R.id.container, recipeFragment);
         ft.commit();
     }
