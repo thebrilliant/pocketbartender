@@ -25,7 +25,7 @@ public class RecipeFragment extends Fragment {
     private String recipeName;
     private Activity hostActivity;
     private MainApp app;
-    static int currentStepNum = -3;
+    static int currentStepNum;
     private static List<String> instructions;
     private static ArrayList<Recipe> recipeList;
     private static Map<Ingredient, Double> ingredientMap;
@@ -65,6 +65,7 @@ public class RecipeFragment extends Fragment {
 
             if (currentStepNum == -2) {
                 txtDescr.setText(descriptionToString(currentRecipe));
+                currentStepNum++;
             } else if (currentStepNum == -1) {
                 btnNext.setText(R.string.next);
 
