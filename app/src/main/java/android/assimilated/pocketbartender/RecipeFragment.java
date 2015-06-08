@@ -22,10 +22,10 @@ import java.util.Map;
 public class RecipeFragment extends Fragment {
     private String recipeName;
     private Activity hostActivity;
-    private MainApp app = (MainApp) hostActivity.getApplication();
+    private MainApp app;
     private int currentStepNum;
     private List<String> instructions;
-    private ArrayList<Recipe> recipeList = app.recipeList;
+    private ArrayList<Recipe> recipeList;
 
     public RecipeFragment() {
         // Required empty public constructor
@@ -35,6 +35,8 @@ public class RecipeFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.hostActivity = activity;
+        app = (MainApp) hostActivity.getApplication();
+        recipeList = app.recipeList;
     }
 
     @Override
@@ -55,16 +57,16 @@ public class RecipeFragment extends Fragment {
             }
 
             final Button btnNext = (Button) hostActivity.findViewById(R.id.btnNext);
-            final TextView txtDescr = (TextView) hostActivity.findViewById(R.id.txtDescr);
+            final TextView txtDescr = (TextView) fragmentView.findViewById(R.id.txtDescr);
 
-            if (btnNext.getText().toString().equals(R.string.start)) {
-                txtDescr.setText(currentRecipe.getDescription());
+            if (btnNext.getText().toString().equalsIgnoreCase("Start")) {
+                txtDescr.setText(descriptionToString(currentRecipe));
             }
 
             btnNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (btnNext.getText().toString().equals(R.string.start)) {
+                    if (btnNext.getText().toString().equalsIgnoreCase("Start")) {
                         btnNext.setText(R.string.next);
                         currentStepNum = -1;
 
@@ -90,7 +92,7 @@ public class RecipeFragment extends Fragment {
                         txtDescr.setText(currentInstruction);
                         currentStepNum++;
                     } else {
-                        txtDescr.setText(currentRecipe.getDescription());
+                        txtDescr.setText(descriptionToString(currentRecipe));
                         btnNext.setText(R.string.start);
 
                         currentStepNum = 0;
@@ -105,6 +107,12 @@ public class RecipeFragment extends Fragment {
 
 
         return fragmentView;
+    }
+
+    private String descriptionToString(Recipe currentRecipe) {
+        return "Description: " + currentRecipe.getDescription() + "\nCost: $" +
+                Math.round(100 * currentRecipe.getTotalCost()) / 100.0 +
+                "\nCalories: " + currentRecipe.getTotalCalories();
     }
 
     private Recipe findRecipe(String desiredRecipeName) {
