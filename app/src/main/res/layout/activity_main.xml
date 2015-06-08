@@ -38,7 +38,7 @@
         android:layout_alignParentLeft="true"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="195dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/drinkTitle"
         android:text="Description"
