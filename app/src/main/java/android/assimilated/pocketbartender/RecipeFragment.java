@@ -60,6 +60,12 @@ public class RecipeFragment extends Fragment {
                 throw new IllegalArgumentException("Given recipe does not exist. Recipe name: " + recipeName);
             }
 
+            instructions = currentRecipe.getInstructions();
+
+            if (instructions == null) {
+                throw new IllegalArgumentException("List of instructions does not exist. Recipe name: " + recipeName);
+            }
+
             final Button btnNext = (Button) hostActivity.findViewById(R.id.btnNext);
             final TextView txtDescr = (TextView) fragmentView.findViewById(R.id.txtDescr);
 
@@ -68,8 +74,6 @@ public class RecipeFragment extends Fragment {
                 currentStepNum++;
             } else if (currentStepNum == -1) {
                 btnNext.setText(R.string.next);
-
-                instructions = currentRecipe.getInstructions();
 
                 String ingredients = "Ingredients required for this recipe: \n";
 
