@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,10 +19,11 @@ public class ResultActivity extends ActionBarActivity {
     MainApp app;
 
     TextView userText;
+    ListView list;
 
     String userSearch;
     String type;
-    Ligst<Recipe> results;
+    List<Recipe> results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +37,21 @@ public class ResultActivity extends ActionBarActivity {
         type = launchingIntent.getStringExtra("type");
 
         userText = (TextView) findViewById(R.id.txtSearch);
+        list = (ListView) findViewById(R.id.lstResult);
 
         userText.setText(userSearch);
 
         if (type.equalsIgnoreCase("name")) {
-            app.searchByName(userSearch);
-        } else if (type.equalsIgnoreCase("ingredients")) {
-            app.searchByIngredient(userSearch);
+            results = app.searchByName(userSearch);
+        } else if (type.equalsIgnoreCase("ingredient")) {
+            results = app.searchByIngredient(userSearch);
         } else {
             double cost = Double.parseDouble(userSearch);
-            app.searchByAmount(cost);
+            results = app.searchByAmount(cost);
         }
+
+        ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, results);
+        list.setAdapter(adapter);
     }
 
 
