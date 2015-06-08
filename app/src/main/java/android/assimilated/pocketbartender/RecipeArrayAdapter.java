@@ -1,6 +1,7 @@
 package android.assimilated.pocketbartender;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,12 @@ public class RecipeArrayAdapter extends ArrayAdapter<Recipe> {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         textView1.setText((values[position]).getName());
         textView2.setText((values[position]).getDescription());
-        imageView.setImageResource(R.drawable.moscowmule);
+
+        // String drawableName = (values[position]).getImage();
+        String drawableName = "moscowmule";
+        int resID = context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName());
+
+        imageView.setImageResource(resID);
 
         return rowView;
     }

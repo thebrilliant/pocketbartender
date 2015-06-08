@@ -64,7 +64,7 @@ public class MainApp extends Application {
                         ingredientList = new ArrayList<Ingredient>();
                         recipeList = new ArrayList<Recipe>();
                         // grabbing JSON files from student server
-                        String ingredientsJSON = getJSON("http://studentsz.washington.edu/ghirme/info498c/ingredients.json");
+                        String ingredientsJSON = getJSON("http://students.washington.edu/ghirme/info498c/ingredients.json");
                         String recipesJSON = getJSON("http://students.washington.edu/ghirme/info498c/recipes.json");
 
                         JSONArray ingredientsObject;

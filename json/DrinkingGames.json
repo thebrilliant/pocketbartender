@@ -1,0 +1,29 @@
+[
+	{ "name":"Drunk Jenga (aka Drunga)",
+	  "directions":"Write a different rule on each Jenga block, and play. Knock down the tower? Down your drink."
+	},
+	{ "name":"Never Have I Ever",
+	  "directions":"Taking turns, ask a question in the form of \"Never Have I Ever\" (like \"never have I ever kissed someone from France\"). Everyone who can answer \"yes\", drinks."
+	},
+	{ "name":"Roxanne",
+	  "directions":"Listen to \"Roxanne\" by The Police. Drink every time you hear the word \"Roxanne\". You could also play this with \"Jamming\" by Bob Marley & the Wailers."
+	},
+	{ "name":"Pennies",
+	  "directions":"Take turns trying to bounce a penny off the table into a short glass. Miss? Drink. Three in a row? Make up a new rule."
+	},
+	{ "name":"Fuzzy Duck",
+	  "directions":"Say \"fuzzy duck\" to the person on your left. Continue until someone says \"does he\". You must now say \"ducky fuzz\", going right. \"Does he\" can change direction again. Mess up? Take a drink."
+	},
+	{ "name":"21",
+	  "directions":"Take it in turns to count to 21, but aim not to be the one who says \"21\". If you say \"21\", then you have to take a forfeit."
+	},
+	{ "name":"Drink While You Think",
+	  "directions":"The first person names a celebrity (Emma Watson). The person to their left names a celebrity whose name begins with the letter of that celebrity’s last name (Watson -> Walt Disney). You must drink while you think of a name."
+	},
+	{ "name":"Beer Pong",
+	  "directions":"Two teams, two sets of cups in a triangle, each one-third filled with beer. If you get a ping-pong ball into your opponent’s cup, they have to drink it."
+	},
+	{ "name":"Paranoia",
+	  "directions":"The person on your right whispers you a question, the answer of which has to be somebody playing the game (e.g. \"who is the hottest in this room?\"). You respond out loud. If someone wants to know what the question was, they have to drink."
+	}
+]
