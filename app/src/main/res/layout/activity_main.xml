@@ -35,18 +35,19 @@
         android:layout_height="200dp"
         android:id="@+id/drinkPic"
         android:layout_below="@+id/drinkTitle"
-        android:layout_alignParentLeft="true"/>
+        android:layout_toLeftOf="@+id/description"
+        android:layout_toStartOf="@+id/description" />
 
     <TextView
         android:layout_width="195dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/drinkTitle"
         android:text="Description"
         android:textSize="20sp"
-        android:layout_alignParentRight="true"
         android:textColor="#ff7e313a"
         android:id="@+id/description"
-        android:layout_margin="10dp"/>
+        android:layout_below="@+id/drinkTitle"
+        android:layout_alignRight="@+id/title"
+        android:layout_alignEnd="@+id/title" />
 
     <EditText
         android:layout_width="fill_parent"

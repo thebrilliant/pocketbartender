@@ -91,6 +91,16 @@ public class ResultActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_games) {
+            Intent i = new Intent(getApplicationContext(), GameResultsActivity.class);
+            startActivity(i);
+
+            return true;
+        } else if (id == R.id.action_home) {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

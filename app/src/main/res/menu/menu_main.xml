@@ -11,4 +11,11 @@
         android:orderInCategory="100"
         app:showAsAction="ifRoom"/>
 
+    <item
+        android:id="@+id/action_home"
+        android:title="Games"
+        android:icon="@drawable/home"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"/>
+
 </menu>

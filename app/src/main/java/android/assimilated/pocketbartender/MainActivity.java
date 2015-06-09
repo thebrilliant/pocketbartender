@@ -150,6 +150,11 @@ public class MainActivity extends ActionBarActivity {
             startActivity(i);
 
             return true;
+        } else if (id == R.id.action_home) {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
