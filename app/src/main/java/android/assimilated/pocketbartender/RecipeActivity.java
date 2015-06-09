@@ -49,8 +49,6 @@ public class RecipeActivity extends ActionBarActivity {
 
         createFragment();
 
-        RecipeFragment.currentStepNum = -1;
-
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

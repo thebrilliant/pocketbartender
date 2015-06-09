@@ -25,7 +25,7 @@ public class RecipeFragment extends Fragment {
     private String recipeName;
     private Activity hostActivity;
     private MainApp app;
-    static int currentStepNum = -3;
+    static int currentStepNum;
     private static List<String> instructions;
     private static ArrayList<Recipe> recipeList;
     private static Map<Ingredient, Double> ingredientMap;
@@ -60,15 +60,20 @@ public class RecipeFragment extends Fragment {
                 throw new IllegalArgumentException("Given recipe does not exist. Recipe name: " + recipeName);
             }
 
+            instructions = currentRecipe.getInstructions();
+
+            if (instructions == null) {
+                throw new IllegalArgumentException("List of instructions does not exist. Recipe name: " + recipeName);
+            }
+
             final Button btnNext = (Button) hostActivity.findViewById(R.id.btnNext);
             final TextView txtDescr = (TextView) fragmentView.findViewById(R.id.txtDescr);
 
             if (currentStepNum == -2) {
                 txtDescr.setText(descriptionToString(currentRecipe));
+                currentStepNum++;
             } else if (currentStepNum == -1) {
                 btnNext.setText(R.string.next);
-
-                instructions = currentRecipe.getInstructions();
 
                 String ingredients = "Ingredients required for this recipe: \n";
 
@@ -91,7 +96,7 @@ public class RecipeFragment extends Fragment {
                 txtDescr.setText(descriptionToString(currentRecipe));
                 btnNext.setText(R.string.start);
 
-                currentStepNum = -2;
+                currentStepNum = -1;
             }
 
             if (currentStepNum == instructions.size()) {
