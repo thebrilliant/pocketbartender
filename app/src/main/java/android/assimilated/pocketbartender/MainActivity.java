@@ -14,8 +14,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.*;
 import java.util.Calendar;
@@ -33,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
     EditText search;
     RadioGroup filter;
     Button goSearch;
+    Button gamesButton;
     RadioButton byName;
     RadioButton byIngredient;
     RadioButton byCost;
@@ -59,35 +58,11 @@ public class MainActivity extends ActionBarActivity {
         byName = (RadioButton) findViewById(R.id.name);
         byIngredient = (RadioButton) findViewById(R.id.ingredient);
         byCost = (RadioButton) findViewById(R.id.cost);
+        gamesButton = (Button) findViewById(R.id.gamesButton);
 
         drinkImg.setImageResource(R.drawable.moscowmule);
         descr.setText(description);
 
-        // Gets all the JSON goodiez
-        // Has to be done in its own thread or shit hits the fan
-//        Thread thread = new Thread(new Runnable(){
-//            @Override
-//            public void run() {
-//                try {
-//                    // grabbing JSON files from student server
-//                    String ingredientsJSON = getJSON("http://students.washington.edu/ghirme/info498c/ingredients.json");
-//                    String recipesJSON = getJSON("http://students.washington.edu/ghirme/info498c/recipes.json");
-//
-//                    try{
-//                        JSONArray ingredientsObject = new JSONArray(ingredientsJSON);
-//                        JSONObject recipesObject = new JSONObject(recipesJSON);
-//                    } catch(Exception e){
-//                        e.printStackTrace();
-//                    } finally {
-//                        // Do stuff with ingredients/recipes JSON objects
-//                    };
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//
-//        thread.start();
 
         filter.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -99,6 +74,14 @@ public class MainActivity extends ActionBarActivity {
                 } else {
                     filterType = (String) byCost.getText();
                 }
+            }
+        });
+
+        gamesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(MainActivity.this, GameResultsActivity.class);
+                startActivity(next);
             }
         });
 

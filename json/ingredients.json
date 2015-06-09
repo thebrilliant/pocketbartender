@@ -62,7 +62,7 @@
     {"name":"Whiskey",
       "unit":"oz",
       "type":"Alcohol",
-      "cost":"70",
+      "cost":"0.70",
       "calories": "20"
     },
     {"name":"Ginger Ale",

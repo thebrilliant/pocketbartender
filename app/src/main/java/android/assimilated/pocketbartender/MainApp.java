@@ -36,6 +36,7 @@ public class MainApp extends Application {
 
     ArrayList<Ingredient> ingredientList;
     ArrayList<Recipe> recipeList;
+    ArrayList<Game> gameList;
 
     HashMap<String, List<Recipe>> nameSearch;
     HashMap<String, List<Recipe>> ingredientSearch;
@@ -63,15 +64,20 @@ public class MainApp extends Application {
                     try {
                         ingredientList = new ArrayList<Ingredient>();
                         recipeList = new ArrayList<Recipe>();
+                        gameList = new ArrayList<Game>();
+
                         // grabbing JSON files from student server
                         String ingredientsJSON = getJSON("http://students.washington.edu/ghirme/info498c/ingredients.json");
                         String recipesJSON = getJSON("http://students.washington.edu/ghirme/info498c/recipes.json");
+                        String gamesJSON = getJSON("http://studentsz.washington.edu/ghirme/info498c/DrinkingGames.json");
 
                         JSONArray ingredientsObject;
                         JSONArray recipesObject;
+                        JSONArray gamesObject;
 
                         ingredientsObject = new JSONArray(ingredientsJSON);
                         recipesObject = new JSONArray(recipesJSON);
+                        gamesObject = new JSONArray(gamesJSON);
 
                         // create ingredient list
                         for (int i = 0; i < ingredientsObject.length(); i++) {
@@ -90,15 +96,24 @@ public class MainApp extends Application {
                             Recipe currRecipe = new Recipe(currJSON);
                             recipeList.add(currRecipe);
                         }
-                        Log.d("MainApp", "" + recipeList.size() + " " + ingredientList.size());
+
+                        // adds all games to a list
+                        for (int k = 0; k < gamesObject.length(); k++) {
+                            JSONObject jsonObj = gamesObject.getJSONObject(k);
+                            Game game = new Game(jsonObj);
+                            gameList.add(game);
+                        }
                     } catch (Exception e) { // loading JSON from website didn't work, going to assets
                         try {
                             InputStream ingredientsInputStream = getAssets().open("ingredients.json");
                             InputStream recipesInputStream = getAssets().open("recipes.json");
+                            InputStream gamesInputStream = getAssets().open("DrinkingGames.json");
 
                             JSONArray ingredientsJSON = new JSONArray(readJSONFile(ingredientsInputStream));
                             JSONArray recipesJSON = new JSONArray(readJSONFile(recipesInputStream));
+                            JSONArray gamesJSON = new JSONArray(readJSONFile(gamesInputStream));
 
+                            // adds all ingredients to a list
                             for (int i = 0; i < ingredientsJSON.length(); i++) {
                                 JSONObject ingredientObj = ingredientsJSON.getJSONObject(i);
                                 Ingredient ingredient = new Ingredient(ingredientObj);
@@ -109,10 +124,18 @@ public class MainApp extends Application {
                             Recipe recipeTemp = new Recipe();
                             recipeTemp.setIngredientList(ingredientList);
 
+                            // adds all recipes to a list
                             for (int j = 0; j < recipesJSON.length(); j++) {
                                 JSONObject recipeJSON = recipesJSON.getJSONObject(j);
                                 Recipe recipe = new Recipe(recipeJSON);
                                 recipeList.add(recipe);
+                            }
+
+                            // adds all games to a list
+                            for (int k = 0; k < gamesJSON.length(); k++) {
+                                JSONObject jsonObj = gamesJSON.getJSONObject(k);
+                                Game game = new Game(jsonObj);
+                                gameList.add(game);
                             }
                         } catch (Exception er) {
                             Log.e("Access Assets", "Error Message: " + er.toString());
