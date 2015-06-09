@@ -96,7 +96,7 @@ public class RecipeFragment extends Fragment {
                 txtDescr.setText(descriptionToString(currentRecipe));
                 btnNext.setText(R.string.start);
 
-                currentStepNum = -2;
+                currentStepNum = -1;
             }
 
             if (currentStepNum == instructions.size()) {
