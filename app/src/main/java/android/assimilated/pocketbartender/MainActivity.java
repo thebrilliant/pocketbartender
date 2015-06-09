@@ -60,7 +60,10 @@ public class MainActivity extends ActionBarActivity {
         byCost = (RadioButton) findViewById(R.id.cost);
         gamesButton = (Button) findViewById(R.id.gamesButton);
 
-        drinkImg.setImageResource(R.drawable.moscowmule);
+        String imageName = drinkOfTheDay.getName().toLowerCase().replace(" ", "");
+        int resID = getResources().getIdentifier(imageName, "drawable", getPackageName());
+
+        drinkImg.setImageResource(resID);
         descr.setText(description);
 
 

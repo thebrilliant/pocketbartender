@@ -69,7 +69,7 @@ public class MainApp extends Application {
                         // grabbing JSON files from student server
                         String ingredientsJSON = getJSON("http://students.washington.edu/ghirme/info498c/ingredients.json");
                         String recipesJSON = getJSON("http://students.washington.edu/ghirme/info498c/recipes.json");
-                        String gamesJSON = getJSON("http://studentsz.washington.edu/ghirme/info498c/DrinkingGames.json");
+                        String gamesJSON = getJSON("http://students.washington.edu/ghirme/info498c/DrinkingGames.json");
 
                         JSONArray ingredientsObject;
                         JSONArray recipesObject;

@@ -1,6 +1,6 @@
 [
     { "name":"Moscow Mule",
-      "description":"hard alcohol",
+      "description":"A buck made with high quality vodka, spicy ginger beer and lime juice",
       "cost":"5.00",
       "calories": "200", 
       "ingredients":[        
@@ -82,7 +82,7 @@
         "Garnish with a lemon twist. It’s called a “Horse’s Neck” if it’s served with a long, curly strip of lemon peel."
       ]  
     },
-    { "name":"Gin & Tonic",
+    { "name":"Gin and Tonic",
       "description":"One of the most iconally classic drinks of all time",
       "cost":"5.00",
       "calories": "100", 
@@ -121,7 +121,7 @@
       ]
     }, 
     { "name":"Bloody Mary",
-      "description":"hard alcohol",
+      "description":"The most healthy cocktail out there that makes you think you're drinking a V8",
       "cost":"5.00",
       "calories": "200", 
       "ingredients":[        

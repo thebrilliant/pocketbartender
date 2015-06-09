@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -41,6 +42,15 @@ public class RecipeActivity extends ActionBarActivity {
         //use strings from strings.xml for button text
         TextView txtRecipeName = (TextView) findViewById(R.id.txtRecipeName);
         final Button btnNext = (Button) findViewById(R.id.btnNext);
+
+
+        // code if we want to add an imagine to the steps/recipe view
+//        String drawableName = currentRecipe.getName().toLowerCase().replace(" ", "");
+//        int resID = getResources().getIdentifier(drawableName, "drawable", getPackageName());
+//        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+//        imageView.setImageResource(resID);
+
+
 
         txtRecipeName.setText(currentRecipe.getName());
         btnNext.setText(R.string.start);

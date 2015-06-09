@@ -110,7 +110,7 @@
         android:textColor="#ff572a2a"
         android:textSize="20sp"
         android:padding="5dp"
-        android:layout_below="@+id/userText"
+        android:layout_above="@+id/userText"
         android:layout_alignLeft="@+id/btnGo"
         android:layout_alignStart="@+id/btnGo" />
 

@@ -26,7 +26,6 @@
         android:textSize="25sp"
         android:padding="10dp"
         android:layout_below="@+id/txtGameName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="143dp" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

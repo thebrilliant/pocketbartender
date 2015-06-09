@@ -34,8 +34,7 @@ public class RecipeArrayAdapter extends ArrayAdapter<Recipe> {
         textView1.setText((values[position]).getName());
         textView2.setText((values[position]).getDescription());
 
-        // String drawableName = (values[position]).getImage();
-        String drawableName = "moscowmule";
+        String drawableName = (values[position]).getName().toLowerCase().replace(" ", "");
         int resID = context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName());
 
         imageView.setImageResource(resID);
