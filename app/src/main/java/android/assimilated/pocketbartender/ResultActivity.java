@@ -48,10 +48,12 @@ public class ResultActivity extends ActionBarActivity {
         if (type.equalsIgnoreCase("name")) {
             results = app.searchByName(userSearch);
         } else if (type.equalsIgnoreCase("ingredient")) {
-            results = app.searchByIngredient(userSearch);
+            // if search is empty just return empty array
+            results = userSearch.isEmpty() ? new ArrayList<Recipe>() :
+                    app.searchByIngredient(userSearch);  
         } else {
-            double cost = Double.parseDouble(userSearch);
-            results = app.searchByAmount(cost);
+            results = userSearch.isEmpty() ? new ArrayList<Recipe>() :
+                    app.searchByAmount(Double.parseDouble(userSearch));
         }
         Recipe[] results2 = new Recipe[results.size()];
         for(int i = 0; i < results.size(); i++) {

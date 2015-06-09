@@ -229,6 +229,10 @@ public class MainApp extends Application {
     //PARAMETERS: String (user search phrase).
     //RETURNS: List<Recipe> Search results.
     public List<Recipe> searchByName(String phrase) {
+        if (phrase == null || phrase.isEmpty()) {
+            return recipeList;
+        }
+
         String keyphrase = phrase.trim().toLowerCase();
         List<Recipe> results = new ArrayList<Recipe>();
 
