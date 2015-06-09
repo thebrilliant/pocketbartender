@@ -58,7 +58,6 @@ public class MainActivity extends ActionBarActivity {
         byName = (RadioButton) findViewById(R.id.name);
         byIngredient = (RadioButton) findViewById(R.id.ingredient);
         byCost = (RadioButton) findViewById(R.id.cost);
-        gamesButton = (Button) findViewById(R.id.gamesButton);
 
         String imageName = drinkOfTheDay.getName().toLowerCase().replace(" ", "");
         int resID = getResources().getIdentifier(imageName, "drawable", getPackageName());
@@ -77,14 +76,6 @@ public class MainActivity extends ActionBarActivity {
                 } else {
                     filterType = (String) byCost.getText();
                 }
-            }
-        });
-
-        gamesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent next = new Intent(MainActivity.this, GameResultsActivity.class);
-                startActivity(next);
             }
         });
 
@@ -153,6 +144,11 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.action_games) {
+            Intent i = new Intent(getApplicationContext(), GameResultsActivity.class);
+            startActivity(i);
+
             return true;
         }
 
