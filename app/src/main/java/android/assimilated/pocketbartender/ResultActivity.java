@@ -50,7 +50,7 @@ public class ResultActivity extends ActionBarActivity {
         } else if (type.equalsIgnoreCase("ingredient")) {
             // if search is empty just return empty array
             results = userSearch.isEmpty() ? new ArrayList<Recipe>() :
-                    app.searchByIngredient(userSearch);  
+                    app.searchByIngredient(userSearch);
         } else {
             results = userSearch.isEmpty() ? new ArrayList<Recipe>() :
                     app.searchByAmount(Double.parseDouble(userSearch));
